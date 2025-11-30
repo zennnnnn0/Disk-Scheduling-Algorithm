@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at center, rgb(10, 26, 51) 0%, rgb(2, 6, 17) 100%);
+    color: white;
+}
+
+.content-wrapper {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* *** Header styles removed from here and moved to navigation-bar.css ***
+*/
+
+.dsa {
+    display: block;
+    width: 60%;
+    max-width: 500px;
+    margin: 2vh auto 0;
+    text-align: center;
+    cursor: default;
+}
+
+.dsa h2 {
+    padding-top: 10px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 6px rgb(162, 188, 231);
+}
+
+section {
+    width: 90%;
+    padding: 5px 0px 5px 0px;
+    margin: 4vh auto;
+    min-height: 60vh;
+    max-height: none;
+    overflow-y: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.box {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: rgb(10, 26, 51);
+    min-height: 150px;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 28%;
+    min-width: 250px; 
+    box-shadow: 0 0 7px rgb(31, 62, 163);
+    cursor: default;
+}
+
+.box h2 {
+    text-shadow: 0 0 7px rgb(88, 125, 185);
+    margin: 5px 0 15px;
+}
+
+.box p {
+    font-size: 17px;
+    padding: 0 10px;
+}
+
+.disk {
+    padding: 20px;
+    width: 50%;
+    display: inline-block;
+    margin: 3vh 0;
+}
+
+.disk h2{
+    text-shadow: 0 0 6px rgb(162, 188, 231);
+}
+
+.about-dis h4{
+    font-size: 30px;
+    display: block;
+    width: 60%;
+    max-width: 500px;
+    margin: 2vh auto 0;
+    text-align: center;
+    text-shadow: 0 0 6px rgb(162, 188, 231);
+}
+
+.about-dis p{
+    display: block;
+    width: 60%;
+    max-width: 1000px;
+    margin: 2vh auto 0;
+    text-align: center;
+}
+
+.expected-output{
+    position: absolute; 
+    margin-left: 50px;
+    width: 50%;
+    max-width: 700px;
+    display: inline-block;
+    left: 0;
+    top: 68%;
+    cursor: default;
+}
+
+.expected-output p{
+    margin-top: 20px;
+}

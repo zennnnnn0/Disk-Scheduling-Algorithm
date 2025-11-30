@@ -1,0 +1,31 @@
+header {
+    position: sticky;
+    top: 0;
+    width: 100%; 
+    background-color: rgb(10, 26, 51);
+    height: 50px; 
+    cursor: default;
+    z-index: 5;
+}
+
+.header-content {
+    max-width: 1500px;
+    margin: 0 auto;
+    /* Minimal padding to pull content to the edge */
+    padding: 15px 0px 10px 3px; 
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.header-content h4 {
+    /* Assuming your header text is an <h4> element based on your HTML */
+    padding-top: 0;
+}
+
+.logo {
+    /* Increased size and zero margin for tight fit */
+    height: 50px; 
+    width: auto; 
+    margin-right: 0px; 
+}

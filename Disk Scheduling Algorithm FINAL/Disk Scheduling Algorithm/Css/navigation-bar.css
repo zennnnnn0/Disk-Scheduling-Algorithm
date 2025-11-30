@@ -1,0 +1,133 @@
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.sim-btn {
+    display: inline-block;
+    background-color: transparent;
+    color: rgb(184, 184, 184);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.7s;
+}
+
+.sim-btn:hover {
+    color: rgb(255, 0, 0);
+    text-shadow: 2px 2px 8px rgb(255, 0, 0);
+}
+
+.sim-cnt {
+    display: none;
+    background-color: rgba(20, 47, 122, 0.42);
+    border-radius: 20px;
+    position: absolute;
+    width: 270px;
+    text-align: center;
+    box-shadow: 0px 0px 16px rgba(20, 47, 122, 0.42);
+    font-size: 12px;
+    z-index: 5;
+    bottom: 100%;
+    left: 60%;
+    transform: translateX(-50%);
+}
+
+.sim-cnt a {
+    background-color: rgb(32, 58, 129);
+    color: rgb(206, 206, 206);
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    border-radius: 15px;
+}
+
+.sim-cnt a:hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(49, 89, 201);
+    text-shadow: 0px 0px 8px rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.dropdown:hover .sim-cnt {
+    display: block;
+    background-color: rgb(32, 58, 129);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: rgb(10, 26, 51);
+    box-shadow: 0px 0px 16px rgba(199, 199, 199, 0.4);
+    border: 1px solid rgb(226, 226, 226);
+    height: 35px;
+    width: 270px;
+    border-radius: 16px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.home {
+    display: inline-block;
+}
+
+.home-btn,
+.about-btn {
+    background-color: transparent;
+    display: inline-block;
+    color: rgb(184, 184, 184);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.7s;
+}
+
+.home-btn:hover {
+    color: rgb(24, 46, 107);
+    text-shadow: 0px 0px 5px rgb(24, 46, 107);
+}
+
+.about-btn:hover {
+    color: rgb(19, 104, 30);
+    text-shadow: 0px 0px 5px rgb(19, 104, 30);
+}
+header {
+    position: sticky;
+    top: 0;
+    width: 100%; 
+    background-color: rgb(10, 26, 51);
+    /* Increased height for 50px logo */
+    height: 60px; 
+    cursor: default;
+    z-index: 5;
+}
+
+.header-content {
+    max-width: 1500px;
+    margin: 0 auto;
+    /* Removed vertical padding (15px top, 10px bottom) */
+    padding: 0 0 0 3px; 
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.header-content h4 {
+    /* Ensures no extra padding is on the text */
+    padding-top: 0;
+}
+
+.logo {
+    /* Logo height remains 50px */
+    height: 50px; 
+    width: auto; 
+    margin-right: 0px; 
+}

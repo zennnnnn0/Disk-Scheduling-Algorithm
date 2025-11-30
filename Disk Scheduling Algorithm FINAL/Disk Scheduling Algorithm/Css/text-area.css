@@ -1,0 +1,115 @@
+input{
+    margin-top: 10px;
+    height: 30px;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+    border: none;
+    padding-left: 10px;
+}
+
+input:hover {
+    box-shadow: 0 0 9px rgb(162, 188, 231);
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.input-field{
+    margin: 40px 40px 0px 40px;
+    width: 70%;
+    max-width: 700px;
+    display: inline-block;
+}
+
+.text-area{
+    margin: 10px 0px;
+    height: 70px;
+}
+
+.run{
+    background-color: transparent;
+    border: 1px solid rgba(214, 214, 214, 0.7);
+    color: rgb(204, 216, 235);
+    font-weight: bold;
+    display: block;
+    height: 30px;
+    width: 60px;
+    border-radius: 6px;
+    margin-top: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    transition: 0.4s;
+}
+
+.run:hover{
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0px 0px 6px rgb(162, 188, 231);
+    cursor: pointer;
+}
+
+.run:active{
+    color: rgb(79, 120, 185);
+    border: 1px solid rgb(41, 82, 148);
+    box-shadow: 0px 0px 6px rgb(69, 107, 168);
+}
+
+.direction-area{
+    display: inline-block;
+    position: relative;
+}
+
+/* Make disk container a stable block to avoid layout shifts between pages */
+.disk{
+    position: relative;
+}
+
+.direction-area h5{
+    margin-bottom: 10px;
+}
+
+.direction-btn{
+    display: inline-block;
+    color: rgb(131, 122, 122);
+    height: 30px;
+    width: 60px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.direction-btn:hover{
+    opacity: 0.6;
+}
+
+.direction-cnt{
+    display: none;
+    background-color: rgb(32, 58, 129);
+    border-radius: 6px;
+    position: absolute;
+    top: 100%;
+    left: 48%;
+    transform: translateX(-50%);
+    height: 60px;
+    width: 60px;
+    font-size: 15px;
+    z-index: 3;
+}
+
+.direction-cnt li{
+    display: block;
+    padding: 5px;
+    list-style: none;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.direction-cnt li:hover{
+    color: rgb(0, 0, 0);
+    background-color: rgb(49, 89, 201);
+    text-shadow: 0px 0px 3px rgb(0, 0, 0);
+    border-radius: 6px;
+}
+
+.direction:hover .direction-cnt{
+    display: block;
+}

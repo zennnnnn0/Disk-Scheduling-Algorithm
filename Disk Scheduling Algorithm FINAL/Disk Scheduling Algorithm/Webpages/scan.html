@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Css/navigation-bar.css">
+    <link rel="stylesheet" href="../Css/body.css">
+    <link rel="stylesheet" href="../Css/text-area.css">
+        <link rel="stylesheet" href="../Css/graph.css">
+    <title>Disk Scheduling Algorithm</title>
+</head>
+<body>
+    <header> 
+                <div class="header-content">
+                    
+                    <img src="C:\Users\User\Downloads\Drive-1-removebg-preview.png" alt="Project Logo" class="logo">
+                    
+                    <h4>Disk Scheduling Algorigthm</h4>
+                </div>
+            </header>
+
+    <div class="disk">
+        <h2>SCAN </h2>
+        <div class="input-field">
+            <div class="text-area">
+                <h5>Enter the request sequence:</h5>
+                <input type="text" placeholder="Eg: 10, 25, 40 (Maximum input value = 199)">
+            </div>
+            <div class="text-area">
+                <h5>Enter the initial head posistion:</h5>
+                <input type="text" placeholder="Eg: 20 (Maximum input value = 199)">
+            </div>
+            <div class="direction-area">
+                <h5>Direction:</h5>
+                <div class="direction">
+                    <button class="direction-btn"> Right </button>
+                    <ul class="direction-cnt">
+                        <li>Left</li>
+                        <li>Right</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="run">RUN</button>
+        </div>
+    </div>
+    <div class="expected-output">
+        <h2>Expected output of the algorithm: </h2>
+        <p>Total seek time is: </p>
+        <p>Sequence of execution: </p>
+        <p>Average seek time: </p>
+    </div>
+
+    <nav>
+    <div class="home">
+        <a href="../Webpages/Homepage.html"><button class="home-btn"> Home </button> </a>
+    </div>
+
+    <div class="dropdown">
+        <button class="sim-btn"> Simulation </button>
+        <div class="sim-cnt">
+            <a href="../Webpages/fcfs.html"> FCFS</a>
+            <a href="../Webpages/sstf.html"> SSTF</a>
+            <a href="../Webpages/scan.html"> SCAN</a>
+            <a href="../Webpages/c-scan.html"> C-SCAN</a>
+            <a href="../Webpages/look.html"> LOOK</a>
+            <a href="../Webpages/c-look.html"> C-LOOK</a>
+        </div>
+    </div>
+
+    <div class="about">
+        <a href="../Webpages/about.html"><button class="about-btn"> About Us </button></a>
+    </nav>
+
+    <div id="graph-container">
+        <canvas id="graphStatic"></canvas>
+        <canvas id="graphCanvas"></canvas>
+    </div>
+
+    <script src="../Webpages/graph.js"></script>
+    <script>
+        function scanAlgorithm(requests, head, dir) {
+            // SCAN (elevator): move in the given direction to the end (0 or 199),
+            // servicing requests on the way, then reverse and service the rest.
+            const clean = (requests || []).filter(x => x !== head);
+            const up = clean.filter(x => x >= head).slice().sort((a,b) => a - b);
+            const down = clean.filter(x => x < head).slice().sort((a,b) => a - b);
+            const seq = [head];
+            if (dir === 'Right') {
+                // go right/up, then to the end (199), then reverse and service left side (descending)
+                seq.push(...up);
+                seq.push(199);
+                seq.push(...down.slice().reverse());
+            } else {
+                // go left/down, then to the start (0), then reverse and service right side (ascending)
+                seq.push(...down.slice().reverse());
+                seq.push(0);
+                seq.push(...up);
+            }
+            return seq;
+        }
+
+        document.querySelectorAll('.direction-cnt li').forEach(li => {
+            li.addEventListener('click', () => {
+                document.querySelector('.direction-btn').textContent = li.textContent;
+            });
+        });
+
+        document.querySelector('.run').addEventListener('click', async function() {
+            let req = document.querySelectorAll('input')[0].value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+            let head = parseInt(document.querySelectorAll('input')[1].value);
+            let dir = document.querySelector('.direction-btn').textContent.trim();
+            
+            // Validate head range
+            if (isNaN(head) || head < 0 || head > 199) {
+                alert('Error: Initial head position cannot exceed 199');
+                return;
+            }
+            
+            // Validate that all requests are in range [0,199]
+            if (req.some(x => x > 199 || x < 0)) {
+                alert('Error: Request sequence values must be between 0 and 199');
+                return;
+            }
+            
+            if (!isNaN(head) && req.length > 0) {
+                let seq = scanAlgorithm(req, head, dir);
+                let seek = 0;
+                for (let i = 1; i < seq.length; i++) seek += Math.abs(seq[i] - seq[i-1]);
+
+                // Display computation results immediately
+                let out = document.querySelectorAll('.expected-output p');
+                out[0].textContent = 'Total seek time is: ' + seek;
+                out[1].textContent = 'Sequence of execution: ' + seq.join(' → ');
+                out[2].textContent = 'Average seek time: ' + (seek / (seq.length - 1)).toFixed(2);
+
+                // Then animate
+                if (window.graph) await window.graph.animate(seq);
+            }
+        });
+    </script>
+</body>
+</html>

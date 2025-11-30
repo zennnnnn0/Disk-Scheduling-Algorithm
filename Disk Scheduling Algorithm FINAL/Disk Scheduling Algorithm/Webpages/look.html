@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Css/navigation-bar.css">
+    <link rel="stylesheet" href="../Css/body.css">
+    <link rel="stylesheet" href="../Css/text-area.css">
+    <link rel="stylesheet" href="../Css/graph.css">
+    <title>Disk Scheduling Algorithm</title>
+</head>
+<body>
+    <header> 
+        <div class="header-content">
+            <img src="C:\Users\User\Downloads\Drive-1-removebg-preview.png" alt="Project Logo" class="logo">
+            <h4>Disk Scheduling Algorigthm</h4>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="disk">
+            <h2>LOOK</h2>
+            <div class="input-field">
+                <div class="text-area">
+                    <h5>Enter the request sequence:</h5>
+                    <input type="text" placeholder="Eg: 10, 25, 40 (Maximum input value = 199)">
+                </div>
+                <div class="text-area">
+                    <h5>Enter the initial head posistion:</h5>
+                    <input type="text" placeholder="Eg: 20 (Maximum input value = 199)">
+                </div>
+
+                <div class="direction-area">
+                    <h5>Direction:</h5>
+                    <div class="direction">
+                        <button class="direction-btn"> Right </button>
+                        <ul class="direction-cnt">
+                            <li>Left</li>
+                            <li>Right</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="run">RUN</button>
+            </div>
+        </div>
+        
+        <div class="expected-output">
+            <h2>Output of the algorithm: </h2>
+            <p>Total seek time is: </p>
+            <p>Sequence of execution: </p>
+            <p>Average seek time: </p>
+        </div>
+
+        <nav>
+            <div class="home">
+                <a href="../Webpages/Homepage.html"><button class="home-btn"> Home </button> </a>
+            </div>
+
+            <div class="dropdown">
+                <button class="sim-btn"> Simulation </button>
+                <div class="sim-cnt">
+                    <a href="../Webpages/fcfs.html"> FCFS</a>
+                    <a href="../Webpages/sstf.html"> SSTF</a>
+                    <a href="../Webpages/scan.html"> SCAN</a>
+                    <a href="../Webpages/c-scan.html"> C-SCAN</a>
+                    <a href="../Webpages/look.html"> LOOK</a>
+                    <a href="../Webpages/c-look.html"> C-LOOK</a>
+                </div>
+            </div>
+
+            <div class="about">
+                <a href="../Webpages/about.html"><button class="about-btn"> About Us </button></a>
+            </div>
+        </nav>
+
+        <div id="graph-container">
+            <canvas id="graphStatic"></canvas>
+            <canvas id="graphCanvas"></canvas>
+        </div>
+    </main>
+
+    <script src="../Webpages/graph.js"></script>
+    <script>
+        function lookAlgorithm(requests, head, dir) {
+            // Create a unique, sorted list of all tracks involved (requests + head)
+            let allRequests = [...requests, head].filter((v, i, a) => a.indexOf(v) === i);
+            allRequests.sort((a, b) => a - b); 
+            
+            let headIndex = allRequests.indexOf(head);
+            let seq = [head];
+
+            if (dir === 'Right') {
+                // Sweep Right/Up: tracks after the head, then Left/Down: tracks before the head (reversed)
+                let upSweep = allRequests.slice(headIndex + 1);
+                let downSweep = allRequests.slice(0, headIndex).reverse(); 
+
+                seq.push(...upSweep);
+                seq.push(...downSweep);
+            } else {
+                // Sweep Left/Down: tracks before the head (reversed), then Right/Up: tracks after the head
+                let downSweep = allRequests.slice(0, headIndex).reverse();
+                let upSweep = allRequests.slice(headIndex + 1);
+
+                seq.push(...downSweep);
+                seq.push(...upSweep);
+            }
+            return seq;
+        }
+
+        document.querySelectorAll('.direction-cnt li').forEach(li => {
+            li.addEventListener('click', () => {
+                document.querySelector('.direction-btn').textContent = li.textContent;
+            });
+        });
+
+        document.querySelector('.run').addEventListener('click', async function() {
+            let req = document.querySelectorAll('input')[0].value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+            let head = parseInt(document.querySelectorAll('input')[1].value);
+            let dir = document.querySelector('.direction-btn').textContent.trim();
+            
+            if (head > 199) {
+                alert('Error: Initial head position cannot exceed 199');
+                return;
+            }
+            
+            if (req.some(x => x > 199)) {
+                alert('Error: Request sequence values cannot exceed 199');
+                return;
+            }
+            
+            if (!isNaN(head) && req.length > 0) {
+                // Compute sequences for both directions so we can compare totals
+                const seqRight = lookAlgorithm(req, head, 'Right');
+                const seqLeft = lookAlgorithm(req, head, 'Left');
+
+                const computeSeek = s => {
+                    let total = 0;
+                    for (let i = 1; i < s.length; i++) total += Math.abs(s[i] - s[i-1]);
+                    return total;
+                };
+
+                const seekRight = computeSeek(seqRight);
+                const seekLeft = computeSeek(seqLeft);
+
+                // Choose sequence based on user direction selection
+                const chosenSeq = (dir === 'Right') ? seqRight : seqLeft;
+                const chosenSeek = (dir === 'Right') ? seekRight : seekLeft;
+
+                let out = document.querySelectorAll('.expected-output p');
+                out[0].textContent = 'Total seek time is: ' + chosenSeek;
+                out[1].textContent = 'Sequence of execution: ' + chosenSeq.join(' → ');
+                out[2].textContent = 'Average seek time: ' + (chosenSeek / (chosenSeq.length - 1)).toFixed(2);
+
+                // Also show the alternate direction's total for comparison (append)
+                const altText = (dir === 'Right') ? ('Left total: ' + seekLeft) : ('Right total: ' + seekRight);
+                const note = document.createElement('div');
+                note.style.fontSize = '12px';
+                note.style.color = '#666';
+                note.textContent = 'Other direction — ' + altText;
+                // remove previous note if any
+                const existingNote = document.querySelector('.expected-output .alt-direction-note');
+                if (existingNote) existingNote.remove();
+                note.className = 'alt-direction-note';
+                document.querySelector('.expected-output').appendChild(note);
+
+                if (window.graph) await window.graph.animate(chosenSeq);
+            }
+        });
+    </script>
+</body>
+</html>

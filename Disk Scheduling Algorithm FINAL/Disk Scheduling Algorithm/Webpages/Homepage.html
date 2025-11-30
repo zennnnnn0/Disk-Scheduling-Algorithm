@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="../Css/navigation-bar.css">
+            <link rel="stylesheet" href="../Css/body.css">
+            <title>Disk Scheduling Algorithms</title>
+        </head>
+        <body>
+            <header> 
+                <div class="header-content">
+                    
+                    <img src="C:\Users\User\Downloads\Drive-1-removebg-preview.png" alt="Project Logo" class="logo">
+                    
+                    <h4>Disk Scheduling Algorigthm</h4>
+                </div>
+            </header>
+            
+            <main class="content-wrapper">
+            
+                <div class="dsa">
+                    <h2>What is Disk Scheduling Algorigthm?</h2>
+                    <p> <b><i>Disk scheduling</i></b> is done by operating systems to schedule
+                        I/O requests arriving for the disk.<b><i> Disk scheduling </i></b>is also known as I/O scheduling.</p>
+                </div>
+
+                <nav>
+                    <div class="home">
+                        <a href="../Webpages/Homepage.html"><button class="home-btn"> Home </button></a>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="sim-btn"> Simulation </button>
+                        <div class="sim-cnt">
+                            <a href="../Webpages/fcfs.html"> FCFS</a>
+                            <a href="../Webpages/sstf.html"> SSTF</a>
+                            <a href="../Webpages/scan.html"> SCAN</a>
+                            <a href="../Webpages/c-scan.html"> C-SCAN</a>
+                            <a href="../Webpages/look.html"> LOOK</a>
+                            <a href="../Webpages/c-look.html"> C-LOOK</a>
+                        </div>
+                    </div>
+
+                    <div class="about">
+                        <a href="../Webpages/about.html"><button class="about-btn"> About Us </button></a>
+                    </div>
+                </nav>
+
+                <section>
+                    <div class="box">
+                        <h2>FCFS</h2>
+                        <p>The requests are adressed in the order they arrive in the disk queue. 
+                            <b><i>FCFS</i></b> is the simpliest disk scheduling algorithm of all the sceduling algorithm.</p>
+                    </div>
+                    <div class="box">
+                        <h2>SSTF</h2>
+                        <p>The requests having shortest seek time are executed first. 
+                            So, the seek time of every requests is calculated in advance and then they are scheduled accodingly.</p>
+                    </div>
+                    <div class="box">
+                        <h2>SCAN</h2>
+                        <p>The disk arm moves into a particular direction and services the requests coming, after reaching the end of disk,
+                            it reverse direction and services and the request arriving in it's path.
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h2>C-SCAN</h2>
+                        <p>The disk arm moves in a circular fashion, that is the disk arm instead of reversing it's direction goes to the other end 
+                            of the disk and restart servicing the requests from there.
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h2>LOOK</h2>
+                        <p>The disk arm in spite of going to the end of the disk goes only to the last request to be serviced in front
+                            of the head and then reversed its direction from there only.
+                        </p>
+                    </div>
+                    <div class="box">
+                        <h2>C-LOOK</h2>
+                        <p>The disk arm in spite of reversing its direction from last request like in <i>LOOK</i>, instead goes to the other end's last
+                        request. It prevent extra delay due to traversal to the end of the disk.
+                        </p>
+                    </div>
+                </section>
+            
+            </main>
+        </body>
+    </html>
